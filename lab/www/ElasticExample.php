@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Helpers\ClientFactory;
+use App\ClientFactory;
 
 class ElasticExample
 {
@@ -13,20 +13,39 @@ class ElasticExample
         $this->client = ClientFactory::make('http://localhost:9200/');
     }
 
-    public function indexDocument($index, $id, $data)
+    public function addProduct($id, $data)
     {
-        $response = $this->client->put("$index/_doc/$id", [
+        $response = $this->client->put("products/_doc/$id", [
             'json' => $data
         ]);
+
         return $response->getBody()->getContents();
     }
 
-    public function search($index, $query)
+    public function getProduct($id)
     {
-        $response = $this->client->get("$index/_search", [
-            'json' => ['query' => ['match' => $query]]
+        $response = $this->client->get("products/_doc/$id");
+
+        return $response->getBody()->getContents();
+    }
+
+    public function searchProducts($query)
+    {
+        $response = $this->client->get("products/_search", [
+            'json' => [
+                'query' => [
+                    'match' => $query
+                ]
+            ]
         ]);
+
+        return $response->getBody()->getContents();
+    }
+
+    public function deleteProduct($id)
+    {
+        $response = $this->client->delete("products/_doc/$id");
+
         return $response->getBody()->getContents();
     }
 }
-
