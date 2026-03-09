@@ -1,28 +1,29 @@
 <?php
 
 require 'vendor/autoload.php';
-require 'ElasticExample.php';
+
+use App\ElasticExample;
 
 $elastic = new ElasticExample();
 
-echo "<h2>Добавление товара</h2>";
+echo "<pre>";
 
-$result1 = $elastic->addProduct(1, [
-    'name' => 'Ноутбук',
-    'price' => 80000,
-    'category' => 'electronics'
+echo "\n\nДобавление товара\n";
+echo $elastic->addProduct(1, [
+    'name' => 'Cake',
+    'price' => 10000000,
+    'category' => 'Yummy'
 ]);
 
-echo "<pre>";
-print_r($result1);
-echo "</pre>";
+echo "\n\nПолучение товара\n";
+echo $elastic->getProduct(1);
 
-echo "<h2>Поиск товара</h2>";
-
-$result2 = $elastic->searchProduct([
-    'name' => 'Ноутбук'
+echo "\n\nПоиск товара\n";
+echo $elastic->searchProducts([
+    'name' => 'Cake'
 ]);
 
-echo "<pre>";
-print_r($result2);
+echo "\n\nУдаление товара\n";
+echo $elastic->deleteProduct(1);
+
 echo "</pre>";
