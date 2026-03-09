@@ -1,18 +1,6 @@
 {
-    "name": "vendor/name",
-    "description": "lab4",
-    "autoload": {
-        "psr-4": {
-            "Vendor\\Name\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Kseniya Gnezdilova",
-            "email": "gnezdilOva.k.d@gmail.com"
-        }
-    ],
-    "require": {
-        "guzzlehttp/guzzle": "^7.10"
-    }
+  "require": {
+    "guzzlehttp/guzzle": "^7.8"
+  }
 }
+
