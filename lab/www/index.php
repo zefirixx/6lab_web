@@ -1,35 +1,28 @@
 <?php
-require 'db.php';
-require 'Conference.php';
 
-$conference = new Conference($pdo);
-$all = $conference->getAll();
-?>
+require 'vendor/autoload.php';
+require 'ElasticExample.php';
 
-<h2>Список регистраций</h2>
+$elastic = new ElasticExample();
 
-<a href="form.html">Заполнить форму</a>
-<br><br>
+echo "<h2>Добавление товара</h2>";
 
-<table border="1" cellpadding="5">
-<tr>
-    <th>ID</th>
-    <th>Имя</th>
-    <th>Год рождения</th>
-    <th>Секция</th>
-    <th>Сертификат</th>
-    <th>Форма участия</th>
-</tr>
+$result1 = $elastic->addProduct(1, [
+    'name' => 'Ноутбук',
+    'price' => 80000,
+    'category' => 'electronics'
+]);
 
-<?php foreach($all as $row): ?>
-<tr>
-    <td><?= $row['id'] ?></td>
-    <td><?= $row['name'] ?></td>
-    <td><?= $row['birthyear'] ?></td>
-    <td><?= $row['section_name'] ?></td>
-    <td><?= $row['need_certificate'] ? 'Да' : 'Нет' ?></td>
-    <td><?= $row['participation_form'] ?></td>
-</tr>
-<?php endforeach; ?>
+echo "<pre>";
+print_r($result1);
+echo "</pre>";
 
-</table>
+echo "<h2>Поиск товара</h2>";
+
+$result2 = $elastic->searchProduct([
+    'name' => 'Ноутбук'
+]);
+
+echo "<pre>";
+print_r($result2);
+echo "</pre>";
